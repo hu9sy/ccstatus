@@ -1,0 +1,24 @@
+{
+  "name": "ccstatus",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Watch service status for Claude Code",
+  "module": "./src/index.ts",
+  "private": true,
+  "scripts": {
+    "lint": "eslint --cache ."
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node": "^24.0.15",
+    "@typescript-eslint/eslint-plugin": "^8.37.0",
+    "@typescript-eslint/parser": "^8.37.0",
+    "cli-table3": "^0.6.5",
+    "consola": "^3.4.2",
+    "eslint": "^9.31.0",
+    "gunshi": "^0.26.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
