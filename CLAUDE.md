@@ -1,107 +1,51 @@
----
+# CLAUDE.md
 
-Default to using Bun instead of Node.js.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
-- Use `bun test` instead of `jest` or `vitest`
-- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
-- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
-- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
-- Bun automatically loads .env, so don't use dotenv.
+## Project Overview
 
-## APIs
+ccstatus is a CLI tool for monitoring Claude Code service status. It uses the Anthropic Status API to display real-time service information and incident history in Japanese.
 
-- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
-- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
-- `Bun.redis` for Redis. Don't use `ioredis`.
-- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
-- `WebSocket` is built-in. Don't use `ws`.
-- Prefer `Bun.file` over `node:fs`'s readFile/writeFile
-- Bun.$`ls` instead of execa.
+## Commands
 
-## Testing
+```bash
+# Install dependencies
+bun install
 
-Use `bun test` to run tests.
+# Run the main application (shows service status)
+bun run index.ts
 
-```ts#index.test.ts
-import { test, expect } from "bun:test";
+# Run with specific command (incidents)
+bun run index.ts incident --limit 5
 
-test("hello world", () => {
-  expect(1).toBe(1);
-});
+# Lint code
+bun run lint
 ```
 
-## Frontend
+## Architecture
 
-Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
+This is a CLI application built with:
+- **Framework**: gunshi (CLI framework)
+- **Runtime**: Bun with TypeScript
+- **UI Libraries**: consola for logging/UI, cli-table3 for table display
 
-Server:
+### Directory Structure
 
-```ts#index.ts
-import index from "./index.html"
+- `src/index.ts` - Main entry point (delegates to commands)
+- `src/command/` - CLI command implementations
+  - `index.ts` - CLI setup with gunshi framework
+  - `service.ts` - Service status display (default command)
+  - `incident.ts` - Incident history display
 
-Bun.serve({
-  routes: {
-    "/": index,
-    "/api/users/:id": {
-      GET: (req) => {
-        return new Response(JSON.stringify({ id: req.params.id }));
-      },
-    },
-  },
-  // optional websocket support
-  websocket: {
-    open: (ws) => {
-      ws.send("Hello, world!");
-    },
-    message: (ws, message) => {
-      ws.send(message);
-    },
-    close: (ws) => {
-      // handle close
-    }
-  },
-  development: {
-    hmr: true,
-    console: true,
-  }
-})
-```
+### Key Dependencies
 
-HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
+- **gunshi**: CLI framework handling command routing and argument parsing
+- **consola**: Provides colored output and UI elements
+- **cli-table3**: Renders status information in table format
 
-```html#index.html
-<html>
-  <body>
-    <h1>Hello, world!</h1>
-    <script type="module" src="./frontend.tsx"></script>
-  </body>
-</html>
-```
+## Development Notes
 
-With the following `frontend.tsx`:
-
-```tsx#frontend.tsx
-import React from "react";
-
-// import .css files directly and it works
-import './index.css';
-
-import { createRoot } from "react-dom/client";
-
-const root = createRoot(document.body);
-
-export default function Frontend() {
-  return <h1>Hello, world!</h1>;
-}
-
-root.render(<Frontend />);
-```
-
-Then, run index.ts
-
-```sh
-bun --hot ./index.ts
-```
-
-For more information, read the Bun API docs in `node_modules/bun-types/docs/**.md`.
+- Uses ESModules (`"type": "module"` in package.json)
+- TypeScript with strict mode enabled
+- Japanese UI with UTC/JST time display
+- Fetches data from https://status.anthropic.com/api/v2/ endpoints
