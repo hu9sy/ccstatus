@@ -9,4 +9,4 @@
  * @module index
  */
 
-import './commands/index.ts';
+import './command/index.ts';
