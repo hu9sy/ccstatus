@@ -99,8 +99,10 @@ export function formatIncidentForDisplay(incident: Incident, index: number): For
   let latestUpdate: string | undefined;
   if (incident.incident_updates.length > 0) {
     const update = incident.incident_updates[0];
-    const updateDate = formatDateTime(update.created_at);
-    latestUpdate = `${getStatusText(update.status)} (${updateDate})`;
+    if (update) {
+      const updateDate = formatDateTime(update.created_at);
+      latestUpdate = `${getStatusText(update.status)} (${updateDate})`;
+    }
   }
 
   return {
