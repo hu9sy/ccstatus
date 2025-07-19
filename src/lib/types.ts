@@ -3,7 +3,7 @@
 export interface Component {
   id: string;
   name: string;
-  status: string;
+  status: ComponentStatus;
   created_at: string;
   updated_at: string;
   position: number;
@@ -19,12 +19,12 @@ export interface Component {
 export interface IncidentComponent {
   id: string;
   name: string;
-  status: string;
+  status: ComponentStatus;
 }
 
 export interface IncidentUpdate {
   id: string;
-  status: string;
+  status: IncidentStatus;
   body: string;
   created_at: string;
   display_at: string;
@@ -34,12 +34,12 @@ export interface IncidentUpdate {
 export interface Incident {
   id: string;
   name: string;
-  status: string;
+  status: IncidentStatus;
   created_at: string;
   updated_at: string;
   monitoring_at: string | null;
   resolved_at: string | null;
-  impact: string;
+  impact: ImpactLevel;
   shortlink: string;
   started_at: string;
   page_id: string;
@@ -58,12 +58,12 @@ export interface StatusPage {
 export interface ScheduledMaintenance {
   id: string;
   name: string;
-  status: string;
+  status: IncidentStatus;
   created_at: string;
   updated_at: string;
   monitoring_at: string | null;
   resolved_at: string | null;
-  impact: string;
+  impact: ImpactLevel;
   shortlink: string;
   started_at: string;
   page_id: string;
@@ -79,7 +79,7 @@ export interface StatusSummary {
   incidents: Incident[];
   scheduled_maintenances: ScheduledMaintenance[];
   status: {
-    indicator: string;
+    indicator: ServiceIndicator;
     description: string;
   };
 }
@@ -92,3 +92,5 @@ export interface IncidentsResponse {
 // ステータス型定義
 export type IncidentStatus = 'investigating' | 'identified' | 'monitoring' | 'resolved' | 'postmortem';
 export type ImpactLevel = 'none' | 'minor' | 'major' | 'critical';
+export type ComponentStatus = 'operational' | 'degraded_performance' | 'partial_outage' | 'major_outage';
+export type ServiceIndicator = 'none' | 'minor' | 'major' | 'critical';

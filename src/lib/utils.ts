@@ -1,28 +1,5 @@
-import { consola } from 'consola';
-import type { Incident, IncidentsResponse, StatusSummary, IncidentStatus, ImpactLevel } from './types.js';
+import type { IncidentStatus, ImpactLevel, Incident } from './types.js';
 import { MESSAGES } from './messages.js';
-
-// API取得ユーティリティ
-export async function fetchIncidents(): Promise<Incident[]> {
-  const response = await fetch('https://status.anthropic.com/api/v2/incidents.json');
-
-  if (!response.ok) {
-    throw new Error(MESSAGES.COMMON.HTTP_ERROR(response.status, response.statusText));
-  }
-
-  const data: IncidentsResponse = await response.json();
-  return data.incidents;
-}
-
-export async function fetchServiceStatus(): Promise<StatusSummary> {
-  const response = await fetch('https://status.anthropic.com/api/v2/summary.json');
-
-  if (!response.ok) {
-    throw new Error(MESSAGES.COMMON.HTTP_ERROR(response.status, response.statusText));
-  }
-
-  return await response.json();
-}
 
 // アイコン・ステータス表示ユーティリティ
 export function getStatusIcon(status: string): string {
@@ -63,18 +40,11 @@ export function getStatusText(status: string): string {
 }
 
 // 時刻フォーマットユーティリティ
-export function formatDateTime(dateString: string): string {
+export function formatDateTime(dateString: string, multiline = false): string {
   const date = new Date(dateString);
   const jstTime = date.toLocaleString('ja-JP');
   const utcTime = date.toISOString().slice(0, 19).replace('T', ' ') + MESSAGES.COMMON.UTC_SUFFIX;
-  return `${jstTime} (${utcTime})`;
-}
-
-export function formatDateTimeWithUTC(dateString: string): string {
-  const date = new Date(dateString);
-  const jstTime = date.toLocaleString('ja-JP');
-  const utcTime = date.toISOString().slice(0, 19).replace('T', ' ') + MESSAGES.COMMON.UTC_SUFFIX;
-  return `${jstTime}\n(${utcTime})`;
+  return multiline ? `${jstTime}\n(${utcTime})` : `${jstTime} (${utcTime})`;
 }
 
 // インシデント表示フォーマット
@@ -116,15 +86,3 @@ export function formatIncidentForDisplay(incident: Incident, index: number): For
   };
 }
 
-// エラーハンドリングユーティリティ
-export function handleError(error: unknown, context: string): void {
-  consola.error(context);
-
-  if (error instanceof Error) {
-    consola.error(`   ${error.message}`);
-  } else {
-    consola.error(`   ${MESSAGES.INCIDENT.UNKNOWN_ERROR}`);
-  }
-
-  consola.error(`\n${MESSAGES.INCIDENT.CONNECTION_HINT}`);
-}
