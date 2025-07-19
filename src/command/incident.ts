@@ -1,9 +1,24 @@
 import { define } from 'gunshi';
 import { StatusService } from '../services/status-service.ts';
 import { IncidentPresenter } from '../presenters/incident-presenter.ts';
-import { ErrorHandler } from '../lib/error-handler.ts';
+import { BaseCommand } from '../lib/base-command.ts';
 import { MESSAGES } from '../lib/messages.ts';
 import { APP_CONSTANTS } from '../lib/constants.ts';
+
+class IncidentCommandHandler extends BaseCommand {
+    async execute(limit: number) {
+        const statusService = new StatusService();
+        const presenter = new IncidentPresenter();
+
+        await this.executeWithErrorHandling(async () => {
+            presenter.displayFetchingMessage();
+            
+            const allIncidents = await statusService.getIncidents();
+            const incidents = statusService.getIncidentsWithLimit(allIncidents, limit);
+            presenter.displayIncidents(incidents, limit);
+        }, MESSAGES.INCIDENT.FETCH_ERROR);
+    }
+}
 
 export const incidentCommand = define({
     name: 'incident',
@@ -19,19 +34,8 @@ export const incidentCommand = define({
     toKebab: true,
     async run(ctx) {
         const { limit } = ctx.values;
-        const statusService = new StatusService();
-        const presenter = new IncidentPresenter();
-
-        try {
-            presenter.displayFetchingMessage();
-            
-            const allIncidents = await statusService.getIncidents();
-            const incidents = statusService.getIncidentsWithLimit(allIncidents, limit);
-            presenter.displayIncidents(incidents, limit);
-
-        } catch (error) {
-            ErrorHandler.handleWithExit(error, MESSAGES.INCIDENT.FETCH_ERROR);
-        }
+        const handler = new IncidentCommandHandler();
+        await handler.execute(limit);
     }
 });
 
