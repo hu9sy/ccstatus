@@ -1,9 +1,9 @@
 import { define } from 'gunshi';
-import { StatusService } from '../services/status-service.js';
-import { IncidentPresenter } from '../presenters/incident-presenter.js';
-import { ErrorHandler } from '../lib/error-handler.js';
-import { MESSAGES } from '../lib/messages.js';
-import { APP_CONSTANTS } from '../lib/constants.js';
+import { StatusService } from '../services/status-service.ts';
+import { IncidentPresenter } from '../presenters/incident-presenter.ts';
+import { ErrorHandler } from '../lib/error-handler.ts';
+import { MESSAGES } from '../lib/messages.ts';
+import { APP_CONSTANTS } from '../lib/constants.ts';
 
 export const incidentCommand = define({
     name: 'incident',

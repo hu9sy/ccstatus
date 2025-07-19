@@ -1,8 +1,8 @@
 import { define } from 'gunshi';
-import { StatusService } from '../services/status-service.js';
-import { ServicePresenter } from '../presenters/service-presenter.js';
-import { ErrorHandler } from '../lib/error-handler.js';
-import { MESSAGES } from '../lib/messages.js';
+import { StatusService } from '../services/status-service.ts';
+import { ServicePresenter } from '../presenters/service-presenter.ts';
+import { ErrorHandler } from '../lib/error-handler.ts';
+import { MESSAGES } from '../lib/messages.ts';
 
 export const serviceCommand = define({
     name: 'service',

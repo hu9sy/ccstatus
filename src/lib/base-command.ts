@@ -1,4 +1,4 @@
-import { handleError } from './utils.js';
+import { ErrorHandler } from './error-handler.ts';
 
 export abstract class BaseCommand {
   protected async executeWithErrorHandling<T>(
@@ -8,7 +8,7 @@ export abstract class BaseCommand {
     try {
       return await operation();
     } catch (error) {
-      handleError(error, errorMessage);
+      ErrorHandler.handle(error, errorMessage);
       process.exit(1);
     }
   }

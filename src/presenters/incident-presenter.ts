@@ -1,7 +1,7 @@
 import { consola } from 'consola';
-import { formatIncidentForDisplay } from '../lib/utils.js';
-import { MESSAGES } from '../lib/messages.js';
-import type { Incident } from '../lib/types.js';
+import { formatIncidentForDisplay } from '../lib/utils.ts';
+import { MESSAGES } from '../lib/messages.ts';
+import type { Incident } from '../lib/types.ts';
 
 export class IncidentPresenter {
   displayIncidents(incidents: Incident[], _originalLimit: number): void {

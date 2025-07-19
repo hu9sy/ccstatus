@@ -1,6 +1,6 @@
-import type { Incident, IncidentsResponse, StatusSummary } from '../lib/types.js';
-import { MESSAGES } from '../lib/messages.js';
-import { API_CONSTANTS } from '../lib/constants.js';
+import type { Incident, IncidentsResponse, StatusSummary } from '../lib/types.ts';
+import { MESSAGES } from '../lib/messages.ts';
+import { API_CONSTANTS } from '../lib/constants.ts';
 
 async function fetchAnthropicAPI<T>(endpoint: string): Promise<T> {
   const response = await fetch(`${API_CONSTANTS.ANTHROPIC_API_BASE}${endpoint}`);

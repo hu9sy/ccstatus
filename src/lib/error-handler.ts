@@ -1,5 +1,5 @@
 import { consola } from 'consola';
-import { MESSAGES } from './messages.js';
+import { MESSAGES } from './messages.ts';
 
 export class ErrorHandler {
   static handle(error: unknown, context: string): void {

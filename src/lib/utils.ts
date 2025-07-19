@@ -1,5 +1,5 @@
-import type { IncidentStatus, ImpactLevel, Incident } from './types.js';
-import { MESSAGES } from './messages.js';
+import type { IncidentStatus, ImpactLevel, Incident } from './types.ts';
+import { MESSAGES } from './messages.ts';
 
 // アイコン・ステータス表示ユーティリティ
 export function getStatusIcon(status: string): string {

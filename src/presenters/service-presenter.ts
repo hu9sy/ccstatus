@@ -1,9 +1,9 @@
 import { consola } from 'consola';
-import { formatDateTime } from '../lib/utils.js';
-import { MESSAGES } from '../lib/messages.js';
-import { TableBuilder } from '../lib/table-builder.js';
-import { UI_CONSTANTS } from '../lib/constants.js';
-import type { StatusSummary, Component } from '../lib/types.js';
+import { formatDateTime } from '../lib/utils.ts';
+import { MESSAGES } from '../lib/messages.ts';
+import { TableBuilder } from '../lib/table-builder.ts';
+import { UI_CONSTANTS } from '../lib/constants.ts';
+import type { StatusSummary, Component } from '../lib/types.ts';
 
 export class ServicePresenter {
   displayStatusSummary(data: StatusSummary): void {
