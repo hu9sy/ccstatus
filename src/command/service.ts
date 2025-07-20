@@ -11,7 +11,7 @@ class ServiceCommandHandler extends BaseCommand {
 
         await this.executeWithErrorHandling(async () => {
             const data = await statusService.getServiceStatus();
-            
+
             presenter.displayStatusSummary(data);
             presenter.displayComponents(data.components);
             presenter.displayAdditionalInfo(data);

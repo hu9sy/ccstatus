@@ -1,4 +1,5 @@
-import type { IncidentStatus, ImpactLevel, Incident } from './types.ts';
+import pc from 'picocolors';
+import type { IncidentStatus, ImpactLevel, Incident, ComponentStatus } from './types.ts';
 import { MESSAGES } from './messages.ts';
 
 // アイコン・ステータス表示ユーティリティ
@@ -86,3 +87,13 @@ export function formatIncidentForDisplay(incident: Incident, index: number): For
   };
 }
 
+export function coloredStatus(status: string): string
+{
+  switch(status as ComponentStatus) {
+    case 'operational': return pc.green(status);
+    case 'degraded_performance': return pc.yellow(status);
+    case 'partial_outage': return pc.magenta(status);
+    case 'major_outage': return pc.red(status);
+    default: return pc.gray(status);
+  }
+}

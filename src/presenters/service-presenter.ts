@@ -1,5 +1,5 @@
 import { consola } from 'consola';
-import { formatDateTime } from '../lib/utils.ts';
+import { coloredStatus, formatDateTime } from '../lib/utils.ts';
 import { MESSAGES } from '../lib/messages.ts';
 import { TableBuilder } from '../lib/table-builder.ts';
 import { UI_CONSTANTS } from '../lib/constants.ts';
@@ -29,7 +29,7 @@ export class ServicePresenter {
       const updateTimeDisplay = formatDateTime(component.updated_at, true);
       table.addRow([
         component.name,
-        component.status,
+        coloredStatus(component.status),
         updateTimeDisplay,
         component.description || ''
       ]);
