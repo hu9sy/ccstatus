@@ -1,4 +1,4 @@
-import Table from 'cli-table3';
+import CliTable3 from 'cli-table3';
 
 export interface TableConfig {
   headers: string[];
@@ -11,10 +11,10 @@ export interface TableConfig {
 }
 
 export class TableBuilder {
-  private table: Table;
+  private table: CliTable3.Table;
 
   constructor(config: TableConfig) {
-    this.table = new Table({
+    this.table = new CliTable3({
       head: config.headers,
       colWidths: config.colWidths,
       style: {
