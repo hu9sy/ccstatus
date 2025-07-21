@@ -36,10 +36,10 @@ export class ServiceContainer {
       if (!descriptor.instance) {
         descriptor.instance = descriptor.factory();
       }
-      return descriptor.instance;
+      return descriptor.instance as T;
     }
 
-    return descriptor.factory();
+    return descriptor.factory() as T;
   }
 
   isRegistered(token: string | symbol): boolean {

@@ -22,9 +22,14 @@ async function fetchAnthropicAPI<T>(endpoint: string): Promise<T> {
   
   for (let attempt = 1; attempt <= config.maxRetries; attempt++) {
     try {
+      const controller = new globalThis.AbortController();
+      const timeoutId = globalThis.setTimeout(() => controller.abort(), config.timeout);
+      
       const response = await fetch(`${config.baseUrl}${endpoint}`, {
-        signal: AbortSignal.timeout(config.timeout)
+        signal: controller.signal
       });
+      
+      globalThis.clearTimeout(timeoutId);
       
       if (!response.ok) {
         let errorMessage = MESSAGES.COMMON.HTTP_ERROR(response.status, response.statusText);
@@ -240,7 +245,10 @@ export class StatusService implements IStatusService {
     const maxItems = limit && limit > 0 ? Math.min(limit, incidents.length) : incidents.length;
     
     for (let i = 0; i < maxItems; i++) {
-      yield incidents[i];
+      const incident = incidents[i];
+      if (incident) {
+        yield incident;
+      }
     }
   }
 
