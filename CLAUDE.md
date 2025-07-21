@@ -13,13 +13,25 @@ ccstatus is a CLI tool for monitoring Claude Code service status. It uses the An
 bun install
 
 # Run the main application (shows service status)
-bun run index.ts
+bun src/index.ts
 
 # Run with specific command (incidents)
-bun run index.ts incident --limit 5
+bun src/index.ts incident --limit 5
 
 # Lint code
 bun run lint
+
+# Run tests
+bun test
+
+# Run tests in watch mode
+bun run test:watch
+
+# Run tests with coverage
+bun run test:coverage
+
+# Run tests with UI dashboard
+bun run test:ui
 ```
 
 ## Architecture
@@ -32,6 +44,7 @@ This CLI application follows a layered architecture pattern with clear separatio
 - **CLI Framework**: gunshi for command routing and argument parsing
 - **UI**: consola (colored output), cli-table3 (table formatting)
 - **API**: Anthropic Status API (https://status.anthropic.com/api/v2/)
+- **Testing**: Vitest with v8 coverage provider
 
 ### Architectural Patterns
 
@@ -60,6 +73,12 @@ src/
 │   └── incident-presenter.ts # Incident display logic
 └── services/             # Service layer (API communication)
     └── status-service.ts # Anthropic Status API client
+
+tests/
+├── fixtures/             # Test data and mock responses
+├── helpers/              # Test utilities and helpers
+├── integration/          # Integration tests for CLI commands
+└── unit/                # Unit tests for individual modules
 ```
 
 **Design Patterns:**
@@ -80,6 +99,12 @@ src/
 - **Linting**: ESLint with TypeScript integration
 - **Rules**: Configured for CLI development with flexible unused variable handling
 - **Formatting**: Automatic via ESLint
+
+### Testing Configuration
+- **Framework**: Vitest with Node.js environment
+- **Coverage**: v8 provider with 90% global threshold (95% for lib layer)
+- **Structure**: Unit tests in `tests/unit/`, integration tests in `tests/integration/`
+- **Fixtures**: Mock data and API responses in `tests/fixtures/`
 
 ### Japanese Localization
 - All UI messages centralized in `src/lib/messages.ts`
