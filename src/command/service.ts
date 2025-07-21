@@ -1,16 +1,20 @@
 import { define } from 'gunshi';
-import { StatusService } from '../services/status-service.ts';
+import type { IStatusService } from '../services/status-service.ts';
 import { ServicePresenter } from '../presenters/service-presenter.ts';
 import { BaseCommand } from '../lib/base-command.ts';
 import { MESSAGES } from '../lib/messages.ts';
+import { container, SERVICE_TOKENS } from '../lib/service-container.ts';
 
 class ServiceCommandHandler extends BaseCommand {
+    constructor(private statusService: IStatusService) {
+        super();
+    }
+
     async execute() {
-        const statusService = new StatusService();
         const presenter = new ServicePresenter();
 
         await this.executeWithErrorHandling(async () => {
-            const data = await statusService.getServiceStatus();
+            const data = await this.statusService.getServiceStatus();
 
             presenter.displayStatusSummary(data);
             presenter.displayComponents(data.components);
@@ -24,7 +28,8 @@ export const serviceCommand = define({
     description: 'Show status of services',
     toKebab: true,
     async run(_) {
-        const handler = new ServiceCommandHandler();
+        const statusService = container.resolve<IStatusService>(SERVICE_TOKENS.STATUS_SERVICE);
+        const handler = new ServiceCommandHandler(statusService);
         await handler.execute();
     }
 });
