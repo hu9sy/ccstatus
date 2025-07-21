@@ -2,12 +2,17 @@ import type { Incident, IncidentsResponse, StatusSummary } from '../lib/types.ts
 import { MESSAGES } from '../lib/messages.ts';
 import { API_CONSTANTS } from '../lib/constants.ts';
 import { logger } from '../lib/logger.ts';
+import { getApiConfig } from '../lib/config.ts';
 import type { Cache } from '../lib/cache.ts';
 
-async function fetchAnthropicAPI<T>(endpoint: string, retries = 3, delay = 1000): Promise<T> {
-  for (let attempt = 1; attempt <= retries; attempt++) {
+async function fetchAnthropicAPI<T>(endpoint: string): Promise<T> {
+  const config = getApiConfig();
+  
+  for (let attempt = 1; attempt <= config.maxRetries; attempt++) {
     try {
-      const response = await fetch(`${API_CONSTANTS.ANTHROPIC_API_BASE}${endpoint}`);
+      const response = await fetch(`${config.baseUrl}${endpoint}`, {
+        signal: AbortSignal.timeout(config.timeout)
+      });
       
       if (!response.ok) {
         let errorMessage = MESSAGES.COMMON.HTTP_ERROR(response.status, response.statusText);
@@ -22,8 +27,8 @@ async function fetchAnthropicAPI<T>(endpoint: string, retries = 3, delay = 1000)
         }
         
         // レート制限やサーバーエラーの場合はリトライ
-        if ((response.status === 429 || response.status >= 500) && attempt < retries) {
-          await new Promise(resolve => globalThis.setTimeout(resolve, delay * attempt));
+        if ((response.status === 429 || response.status >= 500) && attempt < config.maxRetries) {
+          await new Promise(resolve => globalThis.setTimeout(resolve, config.retryDelayMs * attempt));
           continue;
         }
         
@@ -32,7 +37,7 @@ async function fetchAnthropicAPI<T>(endpoint: string, retries = 3, delay = 1000)
       
       return await response.json();
     } catch (error) {
-      if (attempt === retries) {
+      if (attempt === config.maxRetries) {
         if (error instanceof TypeError) {
           throw new Error(`ネットワークエラー: ${error.message}`);
         }
@@ -40,7 +45,7 @@ async function fetchAnthropicAPI<T>(endpoint: string, retries = 3, delay = 1000)
       }
       
       // ネットワークエラーの場合はリトライ
-      await new Promise(resolve => globalThis.setTimeout(resolve, delay * attempt));
+      await new Promise(resolve => globalThis.setTimeout(resolve, config.retryDelayMs * attempt));
     }
   }
   

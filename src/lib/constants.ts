@@ -1,8 +1,8 @@
 export const API_CONSTANTS = {
   ANTHROPIC_API_BASE: 'https://status.anthropic.com/api/v2/',
   ENDPOINTS: {
-    INCIDENTS: 'incidents.json',
-    SUMMARY: 'summary.json'
+    INCIDENTS: '/incidents.json',
+    SUMMARY: '/summary.json'
   }
 } as const;
 

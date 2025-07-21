@@ -1,3 +1,5 @@
+import { getCacheConfig } from './config.ts';
+
 export interface CacheEntry<T> {
   value: T;
   expiresAt: number;
@@ -15,8 +17,9 @@ export class Cache<T = unknown> {
   private readonly maxEntries: number;
 
   constructor(options: CacheOptions = {}) {
-    this.ttlMs = options.ttlMs ?? 300000; // Default: 5 minutes
-    this.maxEntries = options.maxEntries ?? 100;
+    const config = getCacheConfig();
+    this.ttlMs = options.ttlMs ?? (config.ttlSeconds * 1000);
+    this.maxEntries = options.maxEntries ?? config.maxSize;
   }
 
   set(key: string, value: T, customTtlMs?: number): void {

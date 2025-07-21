@@ -1,9 +1,13 @@
 // Anthropic Status API型定義
 
-export interface Component {
+// 基本コンポーネント定義
+export interface BaseComponent {
   id: string;
   name: string;
   status: ComponentStatus;
+}
+
+export interface Component extends BaseComponent {
   created_at: string;
   updated_at: string;
   position: number;
@@ -16,11 +20,8 @@ export interface Component {
   only_show_if_degraded: boolean;
 }
 
-export interface IncidentComponent {
-  id: string;
-  name: string;
-  status: ComponentStatus;
-}
+// IncidentComponentはBaseComponentを継承（重複削減）
+export type IncidentComponent = BaseComponent;
 
 export interface IncidentUpdate {
   id: string;
@@ -93,4 +94,49 @@ export interface IncidentsResponse {
 export type IncidentStatus = 'investigating' | 'identified' | 'monitoring' | 'resolved' | 'postmortem';
 export type ImpactLevel = 'none' | 'minor' | 'major' | 'critical';
 export type ComponentStatus = 'operational' | 'degraded_performance' | 'partial_outage' | 'major_outage';
-export type ServiceIndicator = 'none' | 'minor' | 'major' | 'critical';
+
+// ServiceIndicatorとImpactLevelの統合（値が同じため）
+export type ServiceIndicator = ImpactLevel;
+
+// 型ガード関数
+export function isValidIncidentStatus(status: string): status is IncidentStatus {
+  return ['investigating', 'identified', 'monitoring', 'resolved', 'postmortem'].includes(status);
+}
+
+export function isValidImpactLevel(level: string): level is ImpactLevel {
+  return ['none', 'minor', 'major', 'critical'].includes(level);
+}
+
+export function isValidComponentStatus(status: string): status is ComponentStatus {
+  return ['operational', 'degraded_performance', 'partial_outage', 'major_outage'].includes(status);
+}
+
+export function isValidServiceIndicator(indicator: string): indicator is ServiceIndicator {
+  return isValidImpactLevel(indicator);
+}
+
+// 型バリデーション関数
+export function validateComponent(data: unknown): data is Component {
+  return (
+    typeof data === 'object' &&
+    data !== null &&
+    typeof data.id === 'string' &&
+    typeof data.name === 'string' &&
+    isValidComponentStatus(data.status) &&
+    typeof data.created_at === 'string' &&
+    typeof data.updated_at === 'string'
+  );
+}
+
+export function validateIncident(data: unknown): data is Incident {
+  return (
+    typeof data === 'object' &&
+    data !== null &&
+    typeof data.id === 'string' &&
+    typeof data.name === 'string' &&
+    isValidIncidentStatus(data.status) &&
+    isValidImpactLevel(data.impact) &&
+    Array.isArray(data.incident_updates) &&
+    Array.isArray(data.components)
+  );
+}

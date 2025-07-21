@@ -1,3 +1,5 @@
+import { getLogConfig } from './config.ts';
+
 export enum LogLevel {
   ERROR = 0,
   WARN = 1,
@@ -33,8 +35,16 @@ export class Logger {
   private format: 'json' | 'text';
 
   constructor(options: LoggerOptions = {}) {
-    this.level = options.level ?? LogLevel.INFO;
-    this.enableDebug = options.enableDebug ?? false;
+    const config = getLogConfig();
+    const levelMap = {
+      'ERROR': LogLevel.ERROR,
+      'WARN': LogLevel.WARN,
+      'INFO': LogLevel.INFO,
+      'DEBUG': LogLevel.DEBUG,
+    };
+    
+    this.level = options.level ?? levelMap[config.level];
+    this.enableDebug = options.enableDebug ?? (config.level === 'DEBUG');
     this.format = options.format ?? 'text';
   }
 
