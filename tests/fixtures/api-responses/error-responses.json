@@ -1,0 +1,87 @@
+{
+  "network_error": {
+    "type": "NetworkError",
+    "message": "Failed to fetch",
+    "code": "NETWORK_ERROR"
+  },
+  "timeout_error": {
+    "type": "TimeoutError", 
+    "message": "Request timed out",
+    "code": "TIMEOUT"
+  },
+  "http_400": {
+    "error": {
+      "type": "BadRequest",
+      "message": "Bad request parameters",
+      "code": 400
+    }
+  },
+  "http_401": {
+    "error": {
+      "type": "Unauthorized",
+      "message": "Authentication required",
+      "code": 401
+    }
+  },
+  "http_403": {
+    "error": {
+      "type": "Forbidden",
+      "message": "Access denied",
+      "code": 403
+    }
+  },
+  "http_404": {
+    "error": {
+      "type": "NotFound",
+      "message": "Resource not found",
+      "code": 404
+    }
+  },
+  "http_429": {
+    "error": {
+      "type": "RateLimited",
+      "message": "Too many requests",
+      "code": 429,
+      "retry_after": 60
+    }
+  },
+  "http_500": {
+    "error": {
+      "type": "InternalServerError",
+      "message": "Internal server error",
+      "code": 500
+    }
+  },
+  "http_502": {
+    "error": {
+      "type": "BadGateway",
+      "message": "Bad gateway",
+      "code": 502
+    }
+  },
+  "http_503": {
+    "error": {
+      "type": "ServiceUnavailable",
+      "message": "Service temporarily unavailable",
+      "code": 503,
+      "retry_after": 300
+    }
+  },
+  "malformed_json": {
+    "invalid": "json response with missing required fields"
+  },
+  "empty_response": {},
+  "invalid_status_format": {
+    "page": {
+      "id": "test-page",
+      "name": "Status Page"
+    },
+    "components": [
+      {
+        "id": "comp-1",
+        "name": "Service",
+        "status": "invalid_status"
+      }
+    ]
+  }
+}

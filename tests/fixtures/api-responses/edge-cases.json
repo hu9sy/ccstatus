@@ -1,0 +1,290 @@
+{
+  "empty_incidents": {
+    "page": {
+      "id": "test-page-id",
+      "name": "Claude Code Status",
+      "url": "https://status.anthropic.com",
+      "time_zone": "UTC", 
+      "updated_at": "2025-07-21T12:00:00.000Z"
+    },
+    "incidents": []
+  },
+  "empty_components": {
+    "page": {
+      "id": "test-page-id",
+      "name": "Claude Code Status",
+      "url": "https://status.anthropic.com",
+      "time_zone": "UTC",
+      "updated_at": "2025-07-21T12:00:00.000Z"
+    },
+    "components": [],
+    "incidents": [],
+    "scheduled_maintenances": [],
+    "status": {
+      "indicator": "none",
+      "description": "No components configured"
+    }
+  },
+  "partial_service_data": {
+    "page": {
+      "id": "test-page-id",
+      "name": "Claude Code Status",
+      "url": "https://status.anthropic.com",
+      "time_zone": "UTC",
+      "updated_at": "2025-07-21T12:00:00.000Z"
+    },
+    "components": [
+      {
+        "id": "component-1",
+        "name": "Claude Code",
+        "status": "operational",
+        "created_at": "2025-01-01T00:00:00.000Z",
+        "updated_at": "2025-07-21T12:00:00.000Z",
+        "position": 1,
+        "description": null,
+        "showcase": true,
+        "start_date": null,
+        "group_id": null,
+        "page_id": "test-page-id",
+        "group": false,
+        "only_show_if_degraded": false
+      }
+    ]
+  },
+  "null_fields": {
+    "page": {
+      "id": "test-page-id",
+      "name": "Claude Code Status",
+      "url": "https://status.anthropic.com",
+      "time_zone": "UTC",
+      "updated_at": "2025-07-21T12:00:00.000Z"
+    },
+    "components": [
+      {
+        "id": "component-1",
+        "name": "Claude Code",
+        "status": "operational",
+        "created_at": "2025-01-01T00:00:00.000Z",
+        "updated_at": "2025-07-21T12:00:00.000Z",
+        "position": 1,
+        "description": null,
+        "showcase": true,
+        "start_date": null,
+        "group_id": null,
+        "page_id": "test-page-id",
+        "group": false,
+        "only_show_if_degraded": false
+      }
+    ],
+    "incidents": [
+      {
+        "id": "incident-1", 
+        "name": "サービス調査中",
+        "status": "investigating",
+        "created_at": "2025-07-21T10:00:00.000Z",
+        "updated_at": "2025-07-21T11:00:00.000Z",
+        "monitoring_at": null,
+        "resolved_at": null,
+        "impact": "minor",
+        "shortlink": "http://stspg.io/incident1",
+        "started_at": "2025-07-21T10:00:00.000Z",
+        "page_id": "test-page-id",
+        "incident_updates": [],
+        "components": []
+      }
+    ],
+    "scheduled_maintenances": [],
+    "status": {
+      "indicator": "minor",
+      "description": "Minor issues detected"
+    }
+  },
+  "multiple_statuses": {
+    "page": {
+      "id": "test-page-id",
+      "name": "Claude Code Status",
+      "url": "https://status.anthropic.com",
+      "time_zone": "UTC",
+      "updated_at": "2025-07-21T12:00:00.000Z"
+    },
+    "components": [
+      {
+        "id": "component-1",
+        "name": "Claude Code API",
+        "status": "operational",
+        "created_at": "2025-01-01T00:00:00.000Z",
+        "updated_at": "2025-07-21T12:00:00.000Z",
+        "position": 1,
+        "description": "API service",
+        "showcase": true,
+        "start_date": null,
+        "group_id": null,
+        "page_id": "test-page-id",
+        "group": false,
+        "only_show_if_degraded": false
+      },
+      {
+        "id": "component-2",
+        "name": "Claude Code Web Interface",
+        "status": "degraded_performance",
+        "created_at": "2025-01-01T00:00:00.000Z",
+        "updated_at": "2025-07-21T11:30:00.000Z",
+        "position": 2,
+        "description": "Web interface experiencing slowdowns",
+        "showcase": true,
+        "start_date": null,
+        "group_id": null,
+        "page_id": "test-page-id",
+        "group": false,
+        "only_show_if_degraded": false
+      },
+      {
+        "id": "component-3",
+        "name": "Background Processing",
+        "status": "partial_outage",
+        "created_at": "2025-01-01T00:00:00.000Z",
+        "updated_at": "2025-07-21T11:45:00.000Z",
+        "position": 3,
+        "description": "Some background jobs are failing",
+        "showcase": true,
+        "start_date": null,
+        "group_id": null,
+        "page_id": "test-page-id",
+        "group": false,
+        "only_show_if_degraded": false
+      }
+    ],
+    "incidents": [],
+    "scheduled_maintenances": [],
+    "status": {
+      "indicator": "major",
+      "description": "Some systems are experiencing issues"
+    }
+  },
+  "long_incident_history": {
+    "page": {
+      "id": "test-page-id",
+      "name": "Claude Code Status", 
+      "url": "https://status.anthropic.com",
+      "time_zone": "UTC",
+      "updated_at": "2025-07-21T12:00:00.000Z"
+    },
+    "incidents": [
+      {
+        "id": "incident-1",
+        "name": "データベース接続問題",
+        "status": "resolved",
+        "created_at": "2025-07-21T08:00:00.000Z",
+        "updated_at": "2025-07-21T09:30:00.000Z",
+        "monitoring_at": null,
+        "resolved_at": "2025-07-21T09:30:00.000Z",
+        "impact": "major",
+        "shortlink": "http://stspg.io/incident1",
+        "started_at": "2025-07-21T08:00:00.000Z",
+        "page_id": "test-page-id",
+        "incident_updates": [
+          {
+            "id": "update-1",
+            "status": "investigating",
+            "body": "データベース接続の問題を調査中です。",
+            "incident_id": "incident-1",
+            "created_at": "2025-07-21T08:05:00.000Z",
+            "updated_at": "2025-07-21T08:05:00.000Z",
+            "display_at": "2025-07-21T08:05:00.000Z",
+            "affected_components": []
+          },
+          {
+            "id": "update-2",
+            "status": "identified",
+            "body": "原因を特定しました。データベースサーバーの負荷が高くなっています。",
+            "incident_id": "incident-1",
+            "created_at": "2025-07-21T08:30:00.000Z",
+            "updated_at": "2025-07-21T08:30:00.000Z",
+            "display_at": "2025-07-21T08:30:00.000Z",
+            "affected_components": []
+          },
+          {
+            "id": "update-3",
+            "status": "monitoring",
+            "body": "修正を適用しました。状況を監視中です。",
+            "incident_id": "incident-1",
+            "created_at": "2025-07-21T09:00:00.000Z",
+            "updated_at": "2025-07-21T09:00:00.000Z",
+            "display_at": "2025-07-21T09:00:00.000Z",
+            "affected_components": []
+          },
+          {
+            "id": "update-4",
+            "status": "resolved",
+            "body": "問題は完全に解決されました。全てのサービスが正常に動作しています。",
+            "incident_id": "incident-1",
+            "created_at": "2025-07-21T09:30:00.000Z",
+            "updated_at": "2025-07-21T09:30:00.000Z",
+            "display_at": "2025-07-21T09:30:00.000Z",
+            "affected_components": []
+          }
+        ],
+        "components": []
+      }
+    ]
+  },
+  "unicode_content": {
+    "page": {
+      "id": "test-page-id",
+      "name": "Claude Code ステータス 🤖",
+      "url": "https://status.anthropic.com",
+      "time_zone": "Asia/Tokyo",
+      "updated_at": "2025-07-21T21:00:00+09:00"
+    },
+    "components": [
+      {
+        "id": "component-1",
+        "name": "Claude Code API 🚀",
+        "status": "operational",
+        "created_at": "2025-01-01T09:00:00+09:00",
+        "updated_at": "2025-07-21T21:00:00+09:00",
+        "position": 1,
+        "description": "APIサービス（日本語対応）",
+        "showcase": true,
+        "start_date": null,
+        "group_id": null,
+        "page_id": "test-page-id",
+        "group": false,
+        "only_show_if_degraded": false
+      }
+    ],
+    "incidents": [
+      {
+        "id": "incident-1",
+        "name": "メンテナンス完了 ✅",
+        "status": "resolved",
+        "created_at": "2025-07-21T19:00:00+09:00",
+        "updated_at": "2025-07-21T20:00:00+09:00",
+        "monitoring_at": null,
+        "resolved_at": "2025-07-21T20:00:00+09:00",
+        "impact": "minor",
+        "shortlink": "http://stspg.io/maintenance1",
+        "started_at": "2025-07-21T19:00:00+09:00",
+        "page_id": "test-page-id",
+        "incident_updates": [
+          {
+            "id": "update-1",
+            "status": "resolved",
+            "body": "定期メンテナンスが完了しました。すべての機能が正常に動作しています。ご協力ありがとうございました。 🙏",
+            "incident_id": "incident-1",
+            "created_at": "2025-07-21T20:00:00+09:00",
+            "updated_at": "2025-07-21T20:00:00+09:00",
+            "display_at": "2025-07-21T20:00:00+09:00",
+            "affected_components": []
+          }
+        ],
+        "components": []
+      }
+    ],
+    "scheduled_maintenances": [],
+    "status": {
+      "indicator": "none",
+      "description": "全システム正常稼働中"
+    }
+  }
+}

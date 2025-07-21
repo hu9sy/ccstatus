@@ -1,0 +1,26 @@
+{
+  "page": {
+    "id": "test-page-id",
+    "name": "Claude Code Status",
+    "url": "https://status.anthropic.com",
+    "time_zone": "UTC",
+    "updated_at": "2025-07-21T12:00:00.000Z"
+  },
+  "components": [
+    {
+      "id": "component-1",
+      "name": "Claude Code",
+      "status": "operational",
+      "created_at": "2025-01-01T00:00:00.000Z",
+      "updated_at": "2025-07-21T12:00:00.000Z",
+      "position": 1,
+      "description": "Claude Code service",
+      "showcase": true,
+      "start_date": null,
+      "group_id": null,
+      "page_id": "test-page-id",
+      "group": false,
+      "only_show_if_degraded": false
+    }
+  ]
+}

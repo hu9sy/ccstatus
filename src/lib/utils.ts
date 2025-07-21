@@ -37,7 +37,8 @@ export function getImpactIcon(impact: string): string {
 
 export function getStatusText(status: string): string {
   const statusMap = MESSAGES.INCIDENT.STATUS;
-  return statusMap[status as keyof typeof statusMap] || status;
+  const upperCaseStatus = status.toUpperCase() as keyof typeof statusMap;
+  return statusMap[upperCaseStatus] || status;
 }
 
 // 時刻フォーマットユーティリティ

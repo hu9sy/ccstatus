@@ -1,0 +1,22 @@
+{
+  "api": {
+    "baseUrl": "https://test-status.anthropic.com/api/v2",
+    "timeout": 1000,
+    "maxRetries": 1,
+    "retryDelayMs": 100
+  },
+  "cache": {
+    "ttlSeconds": 60,
+    "maxSize": 5
+  },
+  "display": {
+    "maxIncidents": 5,
+    "dateFormat": "YYYY-MM-DD HH:mm:ss",
+    "timeZone": "Asia/Tokyo",
+    "locale": "ja-JP"
+  },
+  "logging": {
+    "level": "error",
+    "silent": true
+  }
+}
