@@ -5,7 +5,24 @@ import { TableBuilder } from '../lib/table-builder.ts';
 import { UI_CONSTANTS } from '../lib/constants.ts';
 import type { StatusSummary, Component } from '../lib/types.ts';
 
+/**
+ * サービスステータス情報の表示を担当するプレゼンタークラス
+ * CLI インターフェースでサービス全体の状態を視覚的に表示します
+ * 
+ * @example
+ * ```typescript
+ * const presenter = new ServicePresenter();
+ * const statusData = await statusService.getServiceStatus();
+ * presenter.displayStatusSummary(statusData);
+ * presenter.displayComponents(statusData.components);
+ * presenter.displayAdditionalInfo(statusData);
+ * ```
+ */
 export class ServicePresenter {
+  /**
+   * サービス全体のステータスサマリーをボックス形式で表示します
+   * @param data - 表示するステータスサマリー情報
+   */
   displayStatusSummary(data: StatusSummary): void {
     const statusMessage = `Status: ${data.status.description}`;
     const updateMessage = `Updated: ${formatDateTime(data.page.updated_at)}`;
@@ -20,6 +37,11 @@ export class ServicePresenter {
     });
   }
 
+  /**
+   * コンポーネント一覧をテーブル形式で表示します
+   * コンポーネント名、ステータス、更新日時、説明を含むテーブルを表示
+   * @param components - 表示するコンポーネントの配列
+   */
   displayComponents(components: Component[]): void {
     if (components.length === 0) return;
 
@@ -39,6 +61,10 @@ export class ServicePresenter {
     console.log(table.toString());
   }
 
+  /**
+   * アクティブなインシデントや予定メンテナンスの追加情報を表示します
+   * @param data - 表示するステータスサマリー情報
+   */
   displayAdditionalInfo(data: StatusSummary): void {
     if (data.incidents.length > 0) {
       consola.warn(`\n${MESSAGES.SERVICE.ACTIVE_INCIDENTS}`);
