@@ -50,7 +50,11 @@ src/
 │   ├── utils.ts         # Formatting and utility functions
 │   ├── error-handler.ts # Centralized error handling
 │   ├── table-builder.ts # Table creation utilities
-│   └── base-command.ts  # Abstract base for commands
+│   ├── base-command.ts  # Abstract base for commands
+│   ├── cache.ts         # Caching functionality
+│   ├── config.ts        # Configuration management
+│   ├── logger.ts        # Logging utilities
+│   └── service-container.ts # Dependency injection container
 ├── presenters/           # Presentation layer (UI formatting)
 │   ├── service-presenter.ts  # Service status display logic
 │   └── incident-presenter.ts # Incident display logic
